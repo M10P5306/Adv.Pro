@@ -33,7 +33,6 @@ def bfs(origin, maze_nbr, alien_nodes):
     visited_nodes = [(origin[0], origin[1])]
     in_queue = len(queue)
     weight = 1
-    undiscovered_aliens = alien_nodes
     alien_counter = 0
 
     while not len(queue) == 0:
@@ -45,12 +44,12 @@ def bfs(origin, maze_nbr, alien_nodes):
             if square != '#' and (i, j) not in visited_nodes:
                 queue.append((i, j))
                 visited_nodes.append((i, j))
-                if (i, j) in undiscovered_aliens:
+                if (i, j) in alien_nodes:
                     weight_and_distance.append((weight, nodes_in_mazes[maze_nbr].index((origin[0], origin[1])),
                                                 nodes_in_mazes[maze_nbr].index((i, j))))
                     alien_counter += 1
                     if alien_counter == number_of_nodes_in_maze[maze_nbr] - 1:
-                        break
+                        return weight_and_distance
         in_queue -= 1
         if in_queue == 0:
             weight += 1
